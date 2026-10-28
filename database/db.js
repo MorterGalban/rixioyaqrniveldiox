@@ -37,7 +37,7 @@ if (fs.existsSync(envPath)) {
  * 3. Variables estándar (DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT)
  */
 function getPoolConfig() {
-  const databaseUrl = process.env.MYSQL_URL || process.env.DATABASE_URL;
+  const databaseUrl = process.env.MYSQL_PRIVATE_URL || process.env.MYSQL_URL || process.env.DATABASE_URL;
 
   if (databaseUrl) {
     try {
@@ -61,11 +61,11 @@ function getPoolConfig() {
   }
 
   return {
-    host: process.env.DB_HOST || process.env.MYSQLHOST || 'localhost',
-    port: parseInt(process.env.DB_PORT || process.env.MYSQLPORT || '3306', 10),
-    user: process.env.DB_USER || process.env.MYSQLUSER || 'root',
-    password: process.env.DB_PASSWORD || process.env.MYSQLPASSWORD || '',
-    database: process.env.DB_NAME || process.env.MYSQLDATABASE || 'asistencia_unermb',
+    host: process.env.MYSQLHOST || process.env.DB_HOST || 'localhost',
+    port: parseInt(process.env.MYSQLPORT || process.env.DB_PORT || '3306', 10),
+    user: process.env.MYSQLUSER || process.env.DB_USER || 'root',
+    password: process.env.MYSQLPASSWORD || process.env.DB_PASSWORD || '',
+    database: process.env.MYSQLDATABASE || process.env.DB_NAME || 'asistencia_unermb',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
